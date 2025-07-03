@@ -1,6 +1,9 @@
 from django.shortcuts import render
 
 # Create your views here.
-from django.http import HttpResponse
 def my_blog(request):
-    return HttpResponse("Hello, blog!")
+    if request.method == "POST":
+        # handle post
+    else:
+        # render template or something
+        return render(request, 'blog/index.html')
