@@ -1,33 +1,25 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
-from .models import Post
-
-# Create your views here.
-class PostList(generic.ListView):
-    queryset = Post.objects.filter(status=1)
-    template_name = "blog/index.html"
-    paginate_by = 6
+from .models import Event
 
 
-def post_detail(request, slug):
-    """
-    Display an individual :model:`blog.Post`.
+class EventsList(generic.ListView):
 
-    **Context**
 
-    ``post``
-        An instance of :model:`blog.Post`.
+    model = Event
+    template_name = "index.html"
+    paginate_by = 12
 
-    **Template:**
 
-    :template:`blog/post_detail.html`
-    """
 
-    queryset = Post.objects.filter(status=1)
-    post = get_object_or_404(queryset, slug=slug)
+
+def event_detail(request, event_id):
+    
+    queryset = Event.objects.all()
+    event = get_object_or_404(queryset, event_id=event_id)
 
     return render(
         request,
-        "blog/post_detail.html",
-        {"post": post},
+        "events/event_detail.html",
+        {"event": event}
     )
