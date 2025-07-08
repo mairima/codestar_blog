@@ -1,25 +1,12 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.views import generic
-from .models import Event
-
+from .models import Post, Comment, Event
 
 class EventsList(generic.ListView):
-
-
     model = Event
-    template_name = "index.html"
-    paginate_by = 12
-
-
-
-
-def event_detail(request, event_id):
+    template_name = 'events/events_list.html'  # use your correct template
+    context_object_name = 'events'
     
-    queryset = Event.objects.all()
-    event = get_object_or_404(queryset, event_id=event_id)
-
-    return render(
-        request,
-        "events/event_detail.html",
-        {"event": event}
-    )
+def event_detail(request, event_id):
+    # you can later fetch event by ID, but keep it simple for now
+    return render(request, "events/event_detail.html", {"event_id": event_id})
